@@ -7,8 +7,8 @@
 int main () {
     char board[15][15], input[35];
     int i, j, task;
-    fgets(input, 35, stdin); //prima citire din input care este numarul task-ului
-    task = atoi(input); //convertim caracterul '0','1','2','3','4','5','6' in numarul 0,1,2,3,4,5,6
+    fgets(input, 35, stdin); 
+    task = atoi(input); 
     for(i = 0; i < 15; i++)
         for(j = 0; j < 15; j++)
             board[i][j] = '.';
@@ -21,18 +21,22 @@ int main () {
     int N, Y, X, D;
     if(task == 1) {
         fgets(input, 35, stdin);
-        N = atoi(input); //numarul de cuvinte primite
-        for(i = 0; i < N; i++) { //pentru fiecare cuvant
+        /* numarul de cuvinte primite */
+        N = atoi(input); 
+        for(i = 0; i < N; i++) { 
             fgets(input, 35, stdin);
             char *p;
             p = strtok(input, " ");
-            Y = atoi(p); //coord pe verticala
+            /* coord pe verticala */
+            Y = atoi(p); 
             p = strtok(NULL, " ");
-            X = atoi(p); //coord pe orizontala
+            /* coord pe orizontala */
+            X = atoi(p); 
             p = strtok(NULL, " ");
-            D = atoi(p); //directia pe care este scris cuvantul
-            p = strtok(NULL, " "); //in p ramane cuvantul 
-            if(D == 0) { //scriu cuvantul p in matrice pe orizontala
+            /* directia pe care este scris cuvantul */
+            D = atoi(p);
+            p = strtok(NULL, " ");  
+            if(D == 0) { 
                 board[Y][X] = p[0];
                 int nr = 1;
                 int len = strlen(p) - 1;
@@ -41,7 +45,7 @@ int main () {
                     nr++;
                 }
             }
-            if(D == 1) { //scriu cuvantul p in matrice pe verticala 
+            if(D == 1) { 
                 board[Y][X] = p[0];
                 int nr = 1;
                 int len = strlen(p) - 1;
@@ -71,8 +75,9 @@ int main () {
             D = atoi(p);
             p = strtok(NULL, " ");
             int len = strlen(p) - 1;
-            for(j = 0; j < len; j++) { //parcurg fiecare litera a cuvantului
-                c = p[j] - 65; //obtin pozitia literei 
+            for(j = 0; j < len; j++) { 
+                /* pozitia literei */
+                c = p[j] - 65; 
                 val = v[c]; 
                 if(i % 2 == 0) {
                     W = W + val;
@@ -121,26 +126,30 @@ int main () {
                     T = T + val;
                 }
             }
-            if(strstr(p, XX)) { //caut XX in cuvantul p
-                if(D == 0) { //caut pe orizontala
+             /* cautam XX in cuvantul p */
+            if(strstr(p, XX)) {
+                if(D == 0) {
                     for(k = X; k < len+X; k++) {
                         if(bonus_board[Y][k] == 1)
-                            a++; //retinem cati de 1 gasim in tabla de bonus 
+                            /* retinem cati de 1 gasim in tabla de bonus  */
+                            a++; 
                     }
                 }
-                if(D == 1) { //caut pe verticala
+                if(D == 1) { 
                     for(q = Y; q < len+Y; q++) {
                         if(bonus_board[q][X] == 1)
                             a++;
                     }
                 }
-                if(i % 2 == 0) { //punctajul primului jucator
+                /* punctajul primului jucator */
+                if(i % 2 == 0) { 
                     while(a != 0) {
                         W = W * 2;
                         a--;
                     }
                 }
-                else { //punctajul celui de-al doilea jucator
+                /* punctajul celui de-al doilea jucator */
+                else {
                     while(a != 0){
                         T = T * 2;
                         a--;
@@ -148,14 +157,16 @@ int main () {
                 }
             }
 
-            if(p[len-1] == YY[1] && p[len-2] == YY[0]) { //caut YY la finalul cuvantului p 
+            /* cautam YY la finalul cuvantului p */
+            if(p[len-1] == YY[1] && p[len-2] == YY[0]) { 
                 if(D == 0) { //caut pe orizontala
                     for(k = X; k < len+X; k++) {
                         if(bonus_board[Y][k] == 2)
-                            b++; //retin cati de 2 gasesc in tabla de bonus pe pozitiile literelor cuvantului p  
+                            /* retinem cati de 2 gasesc in tabla de bonus pe pozitiile literelor cuvantului p */  
+                            b++; 
                     }
                 }
-                if(D == 1) { //caut pe verticala
+                if(D == 1) { 
                     for(q = Y; q < len+Y; q++) {
                         if(bonus_board[q][X] == 2)
                             b++;
@@ -179,7 +190,6 @@ int main () {
             a=0; b=0; 
             W = 0;
             T = 0;
-            //resetez variabilele
         }
         
         printf("Player 1: %d Points\n", total1);
@@ -201,7 +211,7 @@ int main () {
         YY[2] = '\0';
         fgets(input, 35, stdin);
         N = atoi(input);
-        for(i = 0; i < N; i++) { //citesc fiecare cuvant
+        for(i = 0; i < N; i++) { 
             fgets(input, 35, stdin);
             char *p;
             p = strtok(input, " ");
@@ -212,8 +222,9 @@ int main () {
             D = atoi(p);
             p = strtok(NULL, " ");
             int c = strlen(p) - 1;
-            p[c] = '\0'; //sterg spatiul de pe ultima pozitie a fiecarui cuvant
-            if(D == 0) { //scriu cuvantul citit pe tabla de joc
+            /* sterg spatiul de pe ultima pozitie a fiecarui cuvant */
+            p[c] = '\0';
+            if(D == 0) {
                 board[Y][X] = p[0];
                 int nr = 1;
                 for(j = X+1; j < c+X; j++) {
@@ -231,24 +242,30 @@ int main () {
             }
             for(k = 0; k < 100; k++) {
                 if(strcmp(words[k], p) == 0)
-                    vector[k] = 1; //ca sa stiu ca (,) cuvantul a fost folosit
+                    /* sa stim daca cuvantul a fost folosit */
+                    vector[k] = 1; 
             }
         }
-        for(k = 0; k < 100; k++) { //parcurg vectorul v
-            if(vector[k] == 0) {//cuvantul de la indicele j nu a fost folosit
+        for(k = 0; k < 100; k++) { 
+            if(vector[k] == 0) {
                 strcpy(x, words[k]);
                 int s = strlen(x);
                 for(i = 0; i < 15; i++) {
                     for(j = 0; j < 15; j++) {
                         contor1 = 0; contor2 = 0;
-                        if(board[i][j] == x[0]) { //se afla pe tabla prima litera a cuvantului x
+                        /* se afla pe tabla prima litera a cuvantului x */
+                        if(board[i][j] == x[0]) { 
                             if(s + j - 1 < 15)
-                                for(int a = j+1; a < s+j; a++) { //verific daca cuv x are loc pe orizontala
+                                /* verificam daca cuvantul are loc pe orizontala */
+                                for(int a = j+1; a < s+j; a++) { 
                                         if(board[i][a] != '.')
-                                            contor1++; //daca contor creste am gasit o litera, deci cuv x nu are loc                            
+                                            /* daca contor creste am gasit o litera, deci cuvantul nu are loc */
+                                            contor1++;                            
                                 }
-                            else contor1 = 1;
-                            if(contor1 != 0) { //verific daca cuv are loc pe verticala
+                            else 
+                                contor1 = 1;
+                            /* verificam daca cuvantul are loc pe verticala */
+                            if(contor1 != 0) { 
                                 if(s + i - 1 < 15)
                                     for(int b = i+1; b < s+i; b++) {     
                                             if(board[b][j] != '.')
@@ -256,17 +273,19 @@ int main () {
                                     }
                                 else contor2 = 1;
                             }
-                            if(contor1 == 0 || contor2 == 0) { //are loc ori pe oriz, ori pe verticala
-                                if(contor1 == 0) {//adaug cuv pe oriz
+                            if(contor1 == 0 || contor2 == 0) { 
+                                /* adaugam pe orizontala */
+                                if(contor1 == 0) {
                                     nr = 1;
                                     for(l = j+1; l < s+j; l++) {
                                         board[i][l] = x[nr]; 
                                         nr++;
                                     }
                                     print_board(board);
-                                    return 0; //opresc programul pentru ca gasit primul cuvant 
+                                    return 0; 
                                 }
-                                if(contor2 == 0 && contor1 != 0){ //adaug pe verticala
+                                /* adaugam pe verticala */
+                                if(contor2 == 0 && contor1 != 0){ 
                                     nr = 1;
                                     for(l = i+1; l < i+s; l++) {
                                         board[l][j] = x[nr];
